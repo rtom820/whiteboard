@@ -1,9 +1,8 @@
-
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-var path = require("path");
-var server = app.listen(8000, function() {
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const path = require("path");
+const server = app.listen(8000, function() {
   console.log("listening on port 8000");
 })
 
@@ -18,6 +17,5 @@ app.all("*", (req,res,next) => {
     res.sendFile(path.resolve("./public/dist/public/index.html"))
 });
 
-
-
+module.exports = server;
 

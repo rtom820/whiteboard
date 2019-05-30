@@ -11,7 +11,7 @@ import {
   })
   export class CanvasComponent implements AfterViewInit {
   
-    @ViewChild('canvas') public canvas: ElementRef;
+    @ViewChild('canvas', {static: true}) public canvas: ElementRef;
   
     @Input() public width = 1000;
     @Input() public height = 800;
