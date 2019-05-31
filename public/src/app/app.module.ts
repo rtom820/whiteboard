@@ -9,6 +9,10 @@ import { ChatComponent } from './chat/chat.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+ 
+const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [ChatService],
   bootstrap: [AppComponent]

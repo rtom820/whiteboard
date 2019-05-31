@@ -32,7 +32,7 @@ io.on('connection', function (socket) {
                 // res.json({data});
                 console.log("DATAAAAAA:\n"+JSON.stringify(data));
 
-                io.emit('update-messages', {data : data})
+                io.emit('update-messages', data)
             }
         });
     })

@@ -34,6 +34,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         this.chats = data;
 
         console.log("\n---------------------------------------------\n"+user.nickname + " sent message: "+ this.msgData.message + " to ROOM: " + user.room +"\n---------------------------------------------\n");
+
         this.msgData = { room: user.room, nickname: user.nickname, message: '' }
         // this.getChatByRoom(user.room);
         this.scrollToBottom();
@@ -52,14 +53,14 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     } catch(err) { }
   }
 
-  getChatByRoom(room) {
-    this.chatService.getChatByRoom(room).then((res) => {
-      console.log("getChatByRoom RES:\n"+JSON.stringify(res));
-      this.chats = res;
-    }, (err) => {
-      console.log(err);
-    });
-  }
+  // getChatByRoom(room) {
+  //   this.chatService.getChatByRoom(room).then((res) => {
+  //     console.log("getChatByRoom RES:\n"+JSON.stringify(res));
+  //     this.chats = res;
+  //   }, (err) => {
+  //     console.log(err);
+  //   });
+  // }
 
   joinRoom() {
     var date = new Date();
@@ -97,24 +98,23 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     // });
     console.log("\nattempting to send message:\n" + JSON.stringify(this.msgData));
 
-    this.socket.emit('send-message', this.msgData);
+    this.chatService.sendMsg(this.msgData);
+    
+    // var user = JSON.parse(localStorage.getItem("user"));
+    
+    
+    
+    // this.socket.on('update-messages', function (data) {
+    //   if(data.message.room === JSON.parse(localStorage.getItem("user")).room) {
+    //     this.chats = data;
 
-    
-    var user = JSON.parse(localStorage.getItem("user"));
-    
-    
-    
-    this.socket.on('update-messages', function (data) {
-      if(data.message.room === JSON.parse(localStorage.getItem("user")).room) {
-        this.chats = data;
+    //     console.log("\n---------------------------------------------\n"+user.nickname + " sent message: "+ this.msgData.message + " to ROOM: " + user.room +"\n---------------------------------------------\n");
 
-        console.log("\n---------------------------------------------\n"+user.nickname + " sent message: "+ this.msgData.message + " to ROOM: " + user.room +"\n---------------------------------------------\n");
-
-        this.msgData = { room: user.room, nickname: user.nickname, message: '' }
-        // this.getChatByRoom(user.room);
-        this.scrollToBottom();
-      }
-    }.bind(this));
+    //     this.msgData = { room: user.room, nickname: user.nickname, message: '' }
+    //     // this.getChatByRoom(user.room);
+    //     this.scrollToBottom();
+    //   }
+    // }.bind(this));
 
   }
 
